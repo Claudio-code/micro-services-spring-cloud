@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  department-service-api:
+    container_name: department-service-api
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - department-service-api-network
+    depends_on:
+      - department-service-api-mysql
+
+  department-service-api-mysql:
+    image: mysql:8.0.34
+    container_name: department-service-api-mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - department_service_api_msyql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=departament_db
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - department-service-api-network
+
+networks:
+  department-service-api-network:
+    driver: bridge
+
+volumes:
+  department_service_api_msyql:
+    driver: local
