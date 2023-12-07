@@ -19,4 +19,10 @@ class DepartmentServiceImpl implements DepartmentService {
         return DepartmentDto.make(departmentSaved);
     }
 
+    @Override
+    public DepartmentDto getDepartmentByCode(final String code) {
+        return departmentRepository.findByDepartmentCode(code)
+                .map(DepartmentDto::make)
+                .orElse(null);
+    }
 }
