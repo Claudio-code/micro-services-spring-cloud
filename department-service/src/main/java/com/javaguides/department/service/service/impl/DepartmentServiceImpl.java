@@ -4,12 +4,13 @@ import com.javaguides.department.service.dto.DepartmentDto;
 import com.javaguides.department.service.entity.Department;
 import com.javaguides.department.service.repository.DepartmentRepository;
 import com.javaguides.department.service.service.DepartmentService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
-public class DepartmentServiceImpl implements DepartmentService {
-    private DepartmentRepository departmentRepository;
+@Service
+@AllArgsConstructor
+class DepartmentServiceImpl implements DepartmentService {
+    private final DepartmentRepository departmentRepository;
 
     @Override
     public DepartmentDto saveDepartment(final DepartmentDto departmentDto) {
