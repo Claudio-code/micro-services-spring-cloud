@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  employees-service-api:
+    container_name: employees-service-api
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - employees-service-api-network
+    depends_on:
+      - employees-service-api-mysql
+
+  employees-service-api-mysql:
+    image: mysql:8.0.34
+    container_name: employees-service-api-mysql
+    ports:
+      - "3308:3306"
+    volumes:
+      - employees_service_api_msyql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=employees_db
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - employees-service-api-network
+
+networks:
+  employees-service-api-network:
+    driver: bridge
+
+volumes:
+  employees_service_api_msyql:
+    driver: local
